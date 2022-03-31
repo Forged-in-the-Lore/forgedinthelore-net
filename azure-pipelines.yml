@@ -28,7 +28,14 @@ steps:
     definition: '14'
     buildVersionToDownload: 'latest'
     targetPath: '$(Pipeline.Workspace)/forgedinthelore-net/wwwroot'
- 
+
+- task: ExtractFiles@1
+  inputs:
+    archiveFilePatterns: '(Pipeline.Workspace)/forgedinthelore-net/wwwroot/*.zip'
+    destinationFolder: '(Pipeline.Workspace)/forgedinthelore-net/wwwroot'
+    cleanDestinationFolder: true
+    overwriteExistingFiles: false
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
