@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "forgedinthelore-net", "forgedinthelore\forgedinthelore-net.csproj", "{11E41FA6-8D5D-4ACF-94D6-924B9C9FB543}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "forgedinthelore-net-test", "forgedinthelore-net-test\forgedinthelore-net-test.csproj", "{5D1A33B3-FD62-4627-B2B6-37807ACD3D08}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{11E41FA6-8D5D-4ACF-94D6-924B9C9FB543}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11E41FA6-8D5D-4ACF-94D6-924B9C9FB543}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11E41FA6-8D5D-4ACF-94D6-924B9C9FB543}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D1A33B3-FD62-4627-B2B6-37807ACD3D08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D1A33B3-FD62-4627-B2B6-37807ACD3D08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D1A33B3-FD62-4627-B2B6-37807ACD3D08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D1A33B3-FD62-4627-B2B6-37807ACD3D08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
