@@ -42,7 +42,19 @@ steps:
     projects: '**/$(projectName)*.csproj'
     arguments: '--no-restore'
   displayName: 'Build projects'
- 
+  
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'SonarCloud'
+    organization: 'oibss-f'
+    scannerMode: 'MSBuild'
+    projectKey: 'OIBSS-F_Forged-In-The-Lore'
+    projectName: 'Forged In The Lore'
+- task: SonarCloudAnalyze@1
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
