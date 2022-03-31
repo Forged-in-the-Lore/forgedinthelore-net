@@ -27,11 +27,11 @@ steps:
     project: '98f6bfac-72f0-4905-84da-7df248701b55'
     definition: '14'
     buildVersionToDownload: 'latest'
-    targetPath: '$(Pipeline.Workspace)/forgedinthelore-net/wwwroot'
+    targetPath: '$(Pipeline.Workspace)/artifact-download'
 
 - task: ExtractFiles@1
   inputs:
-    archiveFilePatterns: '$(Pipeline.Workspace)/forgedinthelore-net/wwwroot/*.zip'
+    archiveFilePatterns: '$(Pipeline.Workspace)/artifact-download/drop/*.zip'
     destinationFolder: '$(Pipeline.Workspace)/forgedinthelore-net/wwwroot'
     cleanDestinationFolder: true
     overwriteExistingFiles: false
