@@ -36,13 +36,6 @@ steps:
     cleanDestinationFolder: true
     overwriteExistingFiles: false
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    projects: '**/$(projectName)*.csproj'
-    arguments: '--no-restore'
-  displayName: 'Build projects'
-  
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'SonarCloud'
@@ -50,6 +43,13 @@ steps:
     scannerMode: 'MSBuild'
     projectKey: 'OIBSS-F_Forged-In-The-Lore'
     projectName: 'Forged In The Lore'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: '**/$(projectName)*.csproj'
+    arguments: '--no-restore'
+  displayName: 'Build projects'
+  
 - task: SonarCloudAnalyze@1
 - task: SonarCloudPublish@1
   inputs:
