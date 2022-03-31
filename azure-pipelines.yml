@@ -31,8 +31,8 @@ steps:
 
 - task: ExtractFiles@1
   inputs:
-    archiveFilePatterns: '(Pipeline.Workspace)/forgedinthelore-net/wwwroot/*.zip'
-    destinationFolder: '(Pipeline.Workspace)/forgedinthelore-net/wwwroot'
+    archiveFilePatterns: '$(Pipeline.Workspace)/forgedinthelore-net/wwwroot/*.zip'
+    destinationFolder: '$(Pipeline.Workspace)/forgedinthelore-net/wwwroot'
     cleanDestinationFolder: true
     overwriteExistingFiles: false
 
