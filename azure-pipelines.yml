@@ -51,6 +51,9 @@ stages:
             arguments: '--no-restore --no-build'
           displayName: 'Run Tests'
     - job: IntegrationTests
+      dependsOn:
+        - UnitTests
+      condition: succeeded()
       steps:
         - task: DotNetCoreCLI@2
           inputs:
