@@ -15,61 +15,57 @@ variables:
   projectName: 'forgedinthelore-net'
  
 
- 
- 
-steps:
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'restore'
-    projects: '**/$(projectName)*.csproj'
-  displayName: 'Restore Nuget Packages'
+stages:
+- stage: Test
+  jobs:
+    - job: Setup
+      steps:
+        - task: DotNetCoreCLI@2
+          inputs:
+            command: 'restore'
+            projects: '**/$(projectName)*.csproj'
+          displayName: 'Restore Nuget Packages'
+        - task: SonarCloudPrepare@1
+          inputs:
+            SonarCloud: 'SonarCloud'
+            organization: 'oibss-f'
+            scannerMode: 'MSBuild'
+            projectKey: 'OIBSS-F_Forged-In-The-Lore'
+            projectName: 'Forged In The Lore'
+    - job: UnitTest
+      steps:
+        - task: DotNetCoreCLI@2
+          inputs:
+            command: 'build'
+            projects: '**/$(projectName)*.csproj'
+            arguments: '--no-restore'
+          displayName: 'Build projects'
+          
+        - task: SonarCloudAnalyze@1
+        - task: SonarCloudPublish@1
+          inputs:
+            pollingTimeoutSec: '300'
 
-- task: DownloadPipelineArtifact@2
-  inputs:
-    buildType: 'specific'
-    project: '98f6bfac-72f0-4905-84da-7df248701b55'
-    definition: '14'
-    buildVersionToDownload: 'latest'
-    targetPath: '$(Pipeline.Workspace)/artifact-download'
+        - task: DotNetCoreCLI@2
+          inputs:
+            command: 'test'
+            projects: '**/*-test.csproj'
+            arguments: '--no-restore --no-build'
+          displayName: 'Run Tests'
+    - job: Integration
+      steps:
+        - task: DotNetCoreCLI@2
+          inputs:
+            command: 'test'
+            projects: '**/*-inttest.csproj'
+            arguments: '--no-restore --no-build'
+          displayName: 'Run Tests'
 
-- task: ExtractFiles@1
-  inputs:
-    archiveFilePatterns: '$(Pipeline.Workspace)/artifact-download/drop/*.zip'
-    destinationFolder: '$(Pipeline.Workspace)/forgedinthelore-net/wwwroot'
-    cleanDestinationFolder: true
-    overwriteExistingFiles: false
-
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'SonarCloud'
-    organization: 'oibss-f'
-    scannerMode: 'MSBuild'
-    projectKey: 'OIBSS-F_Forged-In-The-Lore'
-    projectName: 'Forged In The Lore'
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    projects: '**/$(projectName)*.csproj'
-    arguments: '--no-restore'
-  displayName: 'Build projects'
-  
-- task: SonarCloudAnalyze@1
-- task: SonarCloudPublish@1
-  inputs:
-    pollingTimeoutSec: '300'
-
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'test'
-    projects: '**/*[Tt]est.csproj'
-    arguments: '--no-restore --no-build'
-  displayName: 'Run Tests'
- 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'publish'
-    publishWebProjects: false
-    projects: '**/$(projectName)*.csproj'
-    arguments: '--configuration $(buildConfiguration) --no-restore'
-    modifyOutputPath: false
-  displayName: 'Publish Forged in the Lore'
+    - job: Deliver
+      steps:
+        - task: Docker@2
+          inputs:
+            containerRegistry: 'docker-hub'
+            repository: 'davidhellinga/forgedinthelore'
+            command: 'buildAndPush'
+            Dockerfile: '**/forgedinthelore/Dockerfile'
