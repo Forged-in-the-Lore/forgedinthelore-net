@@ -57,6 +57,8 @@ stages:
             command: 'restore'
             projects: '**/$(projectName)*.csproj'
           displayName: 'Restore Nuget Packages'
+          
+          #TODO: Add database dependency if we want to test that
         
         - task: DotNetCoreCLI@2
           inputs:
@@ -65,6 +67,9 @@ stages:
             arguments: '--no-restore --no-build'
           displayName: 'Run Tests'
 - stage: CD
+  dependsOn:
+    - CI
+  condition: succeeded()
   jobs:
     - job: Deliver
       steps:
