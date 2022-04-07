@@ -16,9 +16,9 @@ variables:
  
 
 stages:
-- stage: Test
+- stage: CI
   jobs:
-    - job: Setup
+    - job: UnitTests
       steps:
         - task: DotNetCoreCLI@2
           inputs:
@@ -32,8 +32,6 @@ stages:
             scannerMode: 'MSBuild'
             projectKey: 'OIBSS-F_Forged-In-The-Lore'
             projectName: 'Forged In The Lore'
-    - job: UnitTest
-      steps:
         - task: DotNetCoreCLI@2
           inputs:
             command: 'build'
@@ -52,15 +50,22 @@ stages:
             projects: '**/*-test.csproj'
             arguments: '--no-restore --no-build'
           displayName: 'Run Tests'
-    - job: Integration
+    - job: IntegrationTests
       steps:
+        - task: DotNetCoreCLI@2
+          inputs:
+            command: 'restore'
+            projects: '**/$(projectName)*.csproj'
+          displayName: 'Restore Nuget Packages'
+        
         - task: DotNetCoreCLI@2
           inputs:
             command: 'test'
             projects: '**/*-inttest.csproj'
             arguments: '--no-restore --no-build'
           displayName: 'Run Tests'
-
+- stage: CD
+  jobs:
     - job: Deliver
       steps:
         - task: Docker@2
