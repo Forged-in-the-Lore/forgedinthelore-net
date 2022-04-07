@@ -5,10 +5,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["forgedinthelore-net/forgedinthelore-net.csproj", "forgedinthelore-net/"]
+COPY ["forgedinthelore-net.csproj", "forgedinthelore-net/"]
+WORKDIR "/src/forgedinthelore-net/"
 RUN dotnet restore "forgedinthelore-net.csproj"
 COPY . .
-WORKDIR "/src/"
 RUN dotnet build "forgedinthelore-net.csproj" -c Release -o /app/build
 
 FROM build AS publish
