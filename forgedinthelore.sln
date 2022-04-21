@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "forgedinthelore-net", "forg
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "forgedinthelore-net-test", "forgedinthelore-net-test\forgedinthelore-net-test.csproj", "{5D1A33B3-FD62-4627-B2B6-37807ACD3D08}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "forgedinthelore-net-inttest", "forgedinthelore-net-inttest\forgedinthelore-net-inttest.csproj", "{1C720CE6-4F4E-40C8-A4D2-9CACD564A5D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{5D1A33B3-FD62-4627-B2B6-37807ACD3D08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D1A33B3-FD62-4627-B2B6-37807ACD3D08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D1A33B3-FD62-4627-B2B6-37807ACD3D08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C720CE6-4F4E-40C8-A4D2-9CACD564A5D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C720CE6-4F4E-40C8-A4D2-9CACD564A5D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C720CE6-4F4E-40C8-A4D2-9CACD564A5D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C720CE6-4F4E-40C8-A4D2-9CACD564A5D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
