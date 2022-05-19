@@ -1,10 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "forgedinthelore-net", "forgedinthelore\forgedinthelore-net.csproj", "{11E41FA6-8D5D-4ACF-94D6-924B9C9FB543}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "forgedinthelore-auth-api", "forgedinthelore\forgedinthelore-auth-api.csproj", "{11E41FA6-8D5D-4ACF-94D6-924B9C9FB543}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "forgedinthelore-net-test", "forgedinthelore-net-test\forgedinthelore-net-test.csproj", "{5D1A33B3-FD62-4627-B2B6-37807ACD3D08}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "forgedinthelore-auth-api-test", "forgedinthelore-auth-api-test\forgedinthelore-auth-api-test.csproj", "{5D1A33B3-FD62-4627-B2B6-37807ACD3D08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "forgedinthelore-net-inttest", "forgedinthelore-net-inttest\forgedinthelore-net-inttest.csproj", "{1C720CE6-4F4E-40C8-A4D2-9CACD564A5D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "forgedinthelore-auth-api-inttest", "forgedinthelore-auth-api-inttest\forgedinthelore-auth-api-inttest.csproj", "{1C720CE6-4F4E-40C8-A4D2-9CACD564A5D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
