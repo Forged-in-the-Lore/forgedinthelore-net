@@ -44,7 +44,7 @@ public static class Seed
                 UserName = user.UserName.ToLower()
             };
             await userManager.CreateAsync(appUser, "Passw0rd!");
-            await userManager.AddToRoleAsync(appUser, user.Role);
+            await userManager.AddToRoleAsync(appUser, "admin");
         }
     }
 }

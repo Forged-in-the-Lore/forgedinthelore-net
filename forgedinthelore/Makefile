@@ -25,3 +25,9 @@ db-reset:
 seed:
 	make db-reset
 	dotnet run seed
+
+start-db:
+	docker start forgedinthelore-postgres
+
+stop-db:
+	docker stop forgedinthelore-postgres

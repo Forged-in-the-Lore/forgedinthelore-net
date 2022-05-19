@@ -76,7 +76,7 @@ app.UseWebSockets(webSocketOptions);
 //Request config
 // app.UseHttpsRedirection();
 app.UseCors(policy => policy
-    .WithOrigins("https://localhost:8080")
+    .WithOrigins("https://localhost:4200","http://localhost:4200")
     .AllowAnyMethod()
     .AllowAnyHeader()
     .AllowCredentials());
