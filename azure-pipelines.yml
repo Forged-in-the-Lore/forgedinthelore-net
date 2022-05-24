@@ -12,7 +12,7 @@ pool:
  
 variables:
   buildConfiguration: 'Release'
-  projectName: 'forgedinthelore-net'
+  projectName: 'forgedinthelore-auth-api'
  
 
 stages:
