@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-        <RootNamespace>forgedinthelore_net_test</RootNamespace>
+        <RootNamespace>forgedinthelore_auth_api_test</RootNamespace>
         <Nullable>enable</Nullable>
 
         <IsPackable>false</IsPackable>

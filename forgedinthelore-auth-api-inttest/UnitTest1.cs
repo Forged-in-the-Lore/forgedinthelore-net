@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace forgedinthelore_net_inttest;
+namespace forgedinthelore_auth_api_inttest;
 
 public class Tests
 {
