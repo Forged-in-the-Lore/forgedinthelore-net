@@ -55,11 +55,23 @@ stages:
         - UnitTests
       condition: succeeded()
       steps:
+        - task: DockerInstaller@0
+          inputs:
+            dockerVersion: '17.09.0-ce'
+        - task: Docker@0
+          inputs:
+            customCommand: docker run --name forgedinthelore-postgres -e POSTGRES_USER=appuser -e POSTGRES_PASSWORD=Passw0rd! -p 5432:5432  -d postgres:latest
         - task: DotNetCoreCLI@2
           inputs:
             command: 'restore'
             projects: '**/$(projectName)*.csproj'
           displayName: 'Restore Nuget Packages'
+        - task: DotNetCoreCLI@2
+          inputs:
+            command: 'build'
+            projects: '**/$(projectName)*.csproj'
+            arguments: '--no-restore'
+          displayName: 'Build projects'
           
           #TODO: Add database dependency if we want to test that
         
