@@ -38,18 +38,16 @@ stages:
             projects: '**/$(projectName)*.csproj'
             arguments: '--no-restore'
           displayName: 'Build projects'
-          
-        - task: SonarCloudAnalyze@1
-        - task: SonarCloudPublish@1
-          inputs:
-            pollingTimeoutSec: '300'
-
         - task: DotNetCoreCLI@2
           inputs:
             command: 'test'
             projects: '**/*-test.csproj'
             arguments: '--no-restore --no-build'
           displayName: 'Run Tests'
+        - task: SonarCloudAnalyze@1
+        - task: SonarCloudPublish@1
+          inputs:
+            pollingTimeoutSec: '300'
     - job: IntegrationTests
       dependsOn:
         - UnitTests
