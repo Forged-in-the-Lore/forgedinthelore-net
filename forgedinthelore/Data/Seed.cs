@@ -1,6 +1,7 @@
 using System.Text.Json;
 using forgedinthelore_net.DTOs;
 using forgedinthelore_net.Entities;
+using forgedinthelore_net.Errors;
 using forgedinthelore_net.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +14,6 @@ public static class Seed
     //and creating a Seed* method that takes the relevant services as parameters.
     public static async Task Run(IServiceScope scope)
     {
-        var unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
         await SeedUsers(userManager, roleManager);
@@ -25,8 +25,8 @@ public static class Seed
 
         var roles = new List<AppRole>
         {
-            new() { Name = "Admin" },
-            new() { Name = "User" }
+            new() {Name = "Admin"},
+            new() {Name = "User"}
         };
 
         foreach (var role in roles)
@@ -36,7 +36,7 @@ public static class Seed
 
         var userData = await File.ReadAllTextAsync("Data/SeedData/UserSeedData.json");
         var users = JsonSerializer.Deserialize<List<RegisterDto>>(userData);
-        if (users == null) throw new NullReferenceException("User seed is empty");
+        if (users == null) throw new SeedException("No users in seed file");
         foreach (var user in users)
         {
             var appUser = new AppUser

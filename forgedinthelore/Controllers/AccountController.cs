@@ -12,19 +12,15 @@ namespace forgedinthelore_net.Controllers;
 public class AccountController : BaseApiController
 {
     private readonly ITokenCreatorService _tokenCreatorService;
-    private readonly IMapper _mapper;
     private readonly UserManager<AppUser> _userManager;
     private readonly SignInManager<AppUser> _signInManager;
-    private readonly RoleManager<AppRole> _roleManager;
 
     public AccountController(ITokenCreatorService tokenCreatorService, IMapper mapper, UserManager<AppUser> userManager,
         SignInManager<AppUser> signInManager, RoleManager<AppRole> roleManager)
     {
         _tokenCreatorService = tokenCreatorService;
-        _mapper = mapper;
         _userManager = userManager;
         _signInManager = signInManager;
-        _roleManager = roleManager;
     }
 
 

@@ -18,7 +18,6 @@ builder.Services.AddSignalR();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-//TODO: Move to SwaggerExtension
 builder.Services.AddSwaggerGen(option =>
 {
     option.SwaggerDoc("v1", new OpenApiInfo {Title = "Restaurant API", Version = "v1"});
@@ -74,7 +73,7 @@ var webSocketOptions = new WebSocketOptions
 app.UseWebSockets(webSocketOptions);
 
 //Request config
-// app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 app.UseCors(policy => policy
     .WithOrigins("https://localhost:4200","http://localhost:4200")
     .AllowAnyMethod()
@@ -87,6 +86,5 @@ app.UseAuthorization();
 
 //Add different endpoints
 app.MapControllers();
-// app.MapHub<HubClass>("hubs/path");
 
 app.Run();
