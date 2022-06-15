@@ -8,12 +8,12 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace forgedinthelore_net.Services;
 
-public class TokenService : ITokenService
+public class TokenCreatorService : ITokenCreatorService
 {
     private readonly UserManager<AppUser> _userManager;
     private readonly SymmetricSecurityKey _key;
 
-    public TokenService(IConfiguration config, UserManager<AppUser> userManager)
+    public TokenCreatorService(IConfiguration config, UserManager<AppUser> userManager)
     {
         _userManager = userManager;
         _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));

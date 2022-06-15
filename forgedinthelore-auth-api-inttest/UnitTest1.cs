@@ -2,7 +2,7 @@ using NUnit.Framework;
 
 namespace forgedinthelore_auth_api_inttest;
 
-public class Tests
+public class AccountControllerEndpointTests
 {
     [SetUp]
     public void Setup()

@@ -5,16 +5,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["forgedinthelore-net.csproj", "forgedinthelore-net/"]
-WORKDIR "/src/forgedinthelore-net/"
-RUN dotnet restore "forgedinthelore-net.csproj"
+COPY ["forgedinthelore-auth-api.csproj", "forgedinthelore/"]
+WORKDIR "/src/forgedinthelore/"
+RUN dotnet restore "forgedinthelore-auth-api.csproj"
 COPY . .
-RUN dotnet build "forgedinthelore-net.csproj" -c Release -o /app/build
+RUN dotnet build "forgedinthelore-auth-api.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "forgedinthelore-net.csproj" -c Release -o /app/publish
+RUN dotnet publish "forgedinthelore-auth-api.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "forgedinthelore-net.dll"]
+ENTRYPOINT ["dotnet", "forgedinthelore-auth-api.dll"]

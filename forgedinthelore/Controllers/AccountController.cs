@@ -11,16 +11,16 @@ namespace forgedinthelore_net.Controllers;
 
 public class AccountController : BaseApiController
 {
-    private readonly ITokenService _tokenService;
+    private readonly ITokenCreatorService _tokenCreatorService;
     private readonly IMapper _mapper;
     private readonly UserManager<AppUser> _userManager;
     private readonly SignInManager<AppUser> _signInManager;
     private readonly RoleManager<AppRole> _roleManager;
 
-    public AccountController(ITokenService tokenService, IMapper mapper, UserManager<AppUser> userManager,
+    public AccountController(ITokenCreatorService tokenCreatorService, IMapper mapper, UserManager<AppUser> userManager,
         SignInManager<AppUser> signInManager, RoleManager<AppRole> roleManager)
     {
-        _tokenService = tokenService;
+        _tokenCreatorService = tokenCreatorService;
         _mapper = mapper;
         _userManager = userManager;
         _signInManager = signInManager;
@@ -74,7 +74,8 @@ public class AccountController : BaseApiController
         return new UserDto
         {
             UserName = user.UserName,
-            Token = await _tokenService.CreateToken(user),
+            Id = user.Id,
+            Token = await _tokenCreatorService.CreateToken(user),
             Roles = await _userManager.GetRolesAsync(user)
         };
     }

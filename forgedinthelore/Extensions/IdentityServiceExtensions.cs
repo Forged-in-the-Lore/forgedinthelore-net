@@ -1,9 +1,8 @@
-using System.Text;
 using forgedinthelore_net.Data;
 using forgedinthelore_net.Entities;
+using forgedinthelore_net.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
 
 namespace forgedinthelore_net.Extensions;
 
@@ -26,13 +25,7 @@ public static class IdentityServiceExtensions
             .AddJwtBearer(options =>
             {
                 //For normal validation
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"])),
-                    ValidateIssuer = false, //Would validate the server 
-                    ValidateAudience = false //Would validate the Angular app
-                };
+                options.TokenValidationParameters = TokenValidationParameterOptions.GetParameters(config);
         
                 //For SignalR validation
                 options.Events = new JwtBearerEvents
@@ -61,4 +54,6 @@ public static class IdentityServiceExtensions
 
         return services;
     }
+
+    
 }
