@@ -12,17 +12,19 @@ public class TokenValidatorService : ITokenValidatorService
     {
         _config = config;
     }
+
     public int? ValidateToken(string token)
     {
-        if (token == null) 
+        if (token == null)
             return null;
 
         var tokenHandler = new JwtSecurityTokenHandler();
         try
         {
-            tokenHandler.ValidateToken(token, TokenValidationParameterOptions.GetParameters(_config), out SecurityToken validatedToken);
+            tokenHandler.ValidateToken(token, TokenValidationParameterOptions.GetParameters(_config),
+                out SecurityToken validatedToken);
 
-            var jwtToken = (JwtSecurityToken)validatedToken;
+            var jwtToken = (JwtSecurityToken) validatedToken;
             var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "nameid").Value);
 
             // return user id from JWT token if validation successful
