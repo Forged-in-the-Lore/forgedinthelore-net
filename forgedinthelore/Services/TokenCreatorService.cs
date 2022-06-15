@@ -16,7 +16,7 @@ public class TokenCreatorService : ITokenCreatorService
     public TokenCreatorService(IConfiguration config, UserManager<AppUser> userManager)
     {
         _userManager = userManager;
-        _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
+        _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("TokenKey").Value));
     }
 
     public async Task<string> CreateToken(AppUser user)
