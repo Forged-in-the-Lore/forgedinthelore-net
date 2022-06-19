@@ -20,10 +20,7 @@ stages:
   jobs:
     - job: UnitTests
       steps:
-        - task: DotNetCoreCLI@2
-          inputs:
-            command: 'custom'
-            custom: 'tool install --global dotnet-reportgenerator-globaltool'
+        
         - task: DotNetCoreCLI@2
           inputs:
             command: 'restore'
