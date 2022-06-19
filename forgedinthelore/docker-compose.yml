@@ -12,6 +12,9 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8001:80"
+    dns:
+      - "8.8.8.8"
+      - "8.8.4.4"
     environment:
       DefaultConnection: "Server=localhost; Port=5432; User Id=admin; Password=Passw0rd!; Database=forgedinthelore-auth"
       TokenKey : "3DD164BCFE8D1D8AF122E8CFB86B2"
