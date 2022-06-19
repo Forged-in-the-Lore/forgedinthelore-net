@@ -1,0 +1,31 @@
+networks:
+  forgedinthelore-dev:
+    driver: bridge
+    
+services:
+  forgedinthelore-auth-api:
+    image: forgedinthelore-auth-api:latest
+    depends_on: 
+      - "postgres_image"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8001:80"
+    environment:
+      DefaultConnection: "Server=localhost; Port=5432; User Id=admin; Password=Passw0rd!; Database=forgedinthelore-auth"
+      TokenKey : "3DD164BCFE8D1D8AF122E8CFB86B2"
+    networks:
+      - forgedinthelore-dev
+    
+  postgres_image:
+    image: postgres:latest
+    ports:
+      - "5432"
+    restart: always
+    environment:
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "Passw0rd!"
+      POSTGRES_DB: "forgedinthelore-auth"
+    networks:
+      - forgedinthelore-dev
