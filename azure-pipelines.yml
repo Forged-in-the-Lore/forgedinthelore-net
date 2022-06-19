@@ -45,6 +45,7 @@ stages:
             command: 'test'
             projects: '**/*-test.csproj'
             arguments: '--no-restore --no-build --collect:"XPlat Code Coverage" --logger trx --results-directory $(System.DefaultWorkingDirectory)'
+            publishTestResults: false
           displayName: 'Run Unit Tests'
         - task: SonarCloudAnalyze@1
           displayName: 'SonarCloud - Analyze'
