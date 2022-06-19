@@ -32,7 +32,7 @@ stages:
             scannerMode: 'MSBuild'
             projectKey: 'OIBSS-F_Forged-In-The-Lore'
             projectName: 'Forged In The Lore'
-            extraProperties: 'sonar.cs.opencover.reportsPaths=coverage.cobertura.xml'
+            extraProperties: 'sonar.cs.opencover.reportsPaths=$(System.DefaultWorkingDirectory)\TestResults\**\coverage.cobertura.xml'
           displayName: 'SonarCloud - Prepare'
         - task: DotNetCoreCLI@2
           inputs:
@@ -44,7 +44,7 @@ stages:
           inputs:
             command: 'test'
             projects: '**/*-test.csproj'
-            arguments: '--no-restore --no-build --collect:"XPlat Code Coverage"'
+            arguments: '--no-restore --no-build --collect:"XPlat Code Coverage" --logger trx --results-directory $(System.DefaultWorkingDirectory)'
           displayName: 'Run Unit Tests'
         - task: SonarCloudAnalyze@1
           displayName: 'SonarCloud - Analyze'
