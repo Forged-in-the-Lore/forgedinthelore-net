@@ -22,7 +22,7 @@ stages:
       steps:
         - task: CmdLine@2
           inputs:
-            script: 'tool install --global dotnet-reportgenerator-globaltool --version 5.1.9'
+            script: 'dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.1.9'
         - task: DotNetCoreCLI@2
           inputs:
             command: 'restore'
