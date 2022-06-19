@@ -23,6 +23,7 @@ stages:
         - task: CmdLine@2
           inputs:
             script: 'dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.1.9'
+          displayName: 'Intall Dotnet Report Generator'
         - task: DotNetCoreCLI@2
           inputs:
             command: 'restore'
@@ -52,7 +53,8 @@ stages:
           displayName: 'Run Unit Tests'
         - task: CmdLine@2
           inputs:
-            script: 'reportgenerator "-reports:$(System.DefaultWorkingDirectory)/TestResults/**/coverage.cobertura.xml" "-$(System.DefaultWorkingDirectory)/targetdir:sonarqubecoverage" "-reporttypes:SonarQube"'
+            script: 'reportgenerator "-reports:$(System.DefaultWorkingDirectory)/TestResults/**/coverage.cobertura.xml" "-targetdir:$(System.DefaultWorkingDirectory)/sonarqubecoverage" "-reporttypes:SonarQube"'
+          displayName: 'Covert Coverage Report to SonarQube'
         - task: SonarCloudAnalyze@1
           displayName: 'SonarCloud - Analyze'
         - task: SonarCloudPublish@1
