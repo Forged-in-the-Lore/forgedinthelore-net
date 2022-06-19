@@ -22,11 +22,6 @@ stages:
       steps:
         - task: DotNetCoreCLI@2
           inputs:
-            command: 'custom'
-            custom: 'dotnet tool install --global coverlet.console'
-          displayName: 'Install Coverlet for Code Coverage generation'
-        - task: DotNetCoreCLI@2
-          inputs:
             command: 'restore'
             projects: '**/$(projectName)*.csproj'
           displayName: 'Restore Nuget Packages'
