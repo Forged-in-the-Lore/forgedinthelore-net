@@ -32,7 +32,7 @@ stages:
             scannerMode: 'MSBuild'
             projectKey: 'OIBSS-F_Forged-In-The-Lore'
             projectName: 'Forged In The Lore'
-            extraProperties: 'sonar.cs.opencover.reportsPaths=coverage.xml'
+            extraProperties: 'sonar.cs.opencover.reportsPaths=coverage.cobertura.xml'
           displayName: 'SonarCloud - Prepare'
         - task: DotNetCoreCLI@2
           inputs:
