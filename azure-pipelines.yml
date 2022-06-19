@@ -22,6 +22,10 @@ stages:
       steps:
         - task: DotNetCoreCLI@2
           inputs:
+            command: 'custom'
+            custom: 'tool install --global dotnet-reportgenerator-globaltool'
+        - task: DotNetCoreCLI@2
+          inputs:
             command: 'restore'
             projects: '**/$(projectName)*.csproj'
           displayName: 'Restore Nuget Packages'
@@ -32,7 +36,7 @@ stages:
             scannerMode: 'MSBuild'
             projectKey: 'OIBSS-F_Forged-In-The-Lore'
             projectName: 'Forged In The Lore'
-            extraProperties: 'sonar.cs.opencover.reportsPaths=$(System.DefaultWorkingDirectory)/TestResults/**/coverage.cobertura.xml'
+            extraProperties: 'sonar.cs.opencover.reportsPaths=$(System.DefaultWorkingDirectory)/sonarqubecoverage/SonarQube.xml"'
           displayName: 'SonarCloud - Prepare'
         - task: DotNetCoreCLI@2
           inputs:
@@ -47,6 +51,9 @@ stages:
             arguments: '--no-restore --no-build --collect:"XPlat Code Coverage" --results-directory $(System.DefaultWorkingDirectory)/TestResults'
             publishTestResults: false
           displayName: 'Run Unit Tests'
+        - task: CmdLine@2
+          inputs:
+            script: 'reportgenerator "-reports:$(System.DefaultWorkingDirectory)/TestResults/**/coverage.cobertura.xml" "-$(System.DefaultWorkingDirectory)/targetdir:sonarqubecoverage" "-reporttypes:SonarQube"'
         - task: SonarCloudAnalyze@1
           displayName: 'SonarCloud - Analyze'
         - task: SonarCloudPublish@1
