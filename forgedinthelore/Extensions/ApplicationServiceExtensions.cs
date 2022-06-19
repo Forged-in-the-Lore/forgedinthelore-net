@@ -23,7 +23,11 @@ public static class ApplicationServiceExtensions
         //Add the database context
         services.AddDbContext<DataContext>(options =>
         {
-            options.UseNpgsql(config.GetConnectionString("DefaultConnection"));
+            string connStr = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"
+                ? config.GetConnectionString("DefaultConnection")
+                : Environment.GetEnvironmentVariable("DefaultConnection");
+
+            options.UseNpgsql(connStr);
         });
 
         return services;

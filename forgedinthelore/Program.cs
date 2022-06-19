@@ -1,6 +1,9 @@
 using forgedinthelore_net.Data;
+using forgedinthelore_net.Entities;
 using forgedinthelore_net.Extensions;
 using forgedinthelore_net.Middleware;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,7 +23,7 @@ builder.Services.AddSignalR();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(option =>
 {
-    option.SwaggerDoc("v1", new OpenApiInfo {Title = "Restaurant API", Version = "v1"});
+    option.SwaggerDoc("v1", new OpenApiInfo {Title = "FOTL Auth API", Version = "v1"});
     option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         In = ParameterLocation.Header,
@@ -48,22 +51,26 @@ builder.Services.AddSwaggerGen(option =>
 //Add services ABOVE this line
 var app = builder.Build();
 
-
-if (args.Length == 1 && args[0].ToLower() == "seed")
+//Migrate and Seed
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+try
 {
-    using var scope = app.Services.CreateScope();
+    var context = services.GetRequiredService<DataContext>();
+    await context.Database.MigrateAsync();
     await Seed.Run(scope);
+}
+catch (Exception e)
+{
+    var logger = services.GetRequiredService<ILogger<Program>>();
+    logger.LogError(e, "An error occured during migration");
 }
 
 //Configure app UNDER this line
 app.UseMiddleware<ExceptionMiddleware>();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 //Websocket config
 var webSocketOptions = new WebSocketOptions
