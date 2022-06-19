@@ -32,24 +32,27 @@ stages:
             scannerMode: 'MSBuild'
             projectKey: 'OIBSS-F_Forged-In-The-Lore'
             projectName: 'Forged In The Lore'
+            extraProperties: 'sonar.cs.opencover.reportsPaths=$(System.DefaultWorkingDirectory)/TestResults/**/coverage.opencover.xml'
+          displayName: 'SonarCloud - Prepare'
         - task: DotNetCoreCLI@2
           inputs:
             command: 'build'
             projects: '**/$(projectName)*.csproj'
             arguments: '--no-restore'
           displayName: 'Build projects'
-          
-        - task: SonarCloudAnalyze@1
-        - task: SonarCloudPublish@1
-          inputs:
-            pollingTimeoutSec: '300'
-
         - task: DotNetCoreCLI@2
           inputs:
             command: 'test'
             projects: '**/*-test.csproj'
-            arguments: '--no-restore --no-build'
-          displayName: 'Run Tests'
+            arguments: '--no-restore --no-build --collect:"XPlat Code Coverage" --results-directory $(System.DefaultWorkingDirectory)/TestResults  -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover'
+            publishTestResults: false
+          displayName: 'Run Unit Tests'
+        - task: SonarCloudAnalyze@1
+          displayName: 'SonarCloud - Analyze'
+        - task: SonarCloudPublish@1
+          inputs:
+            pollingTimeoutSec: '300'
+          displayName: 'SonarCloud - Publish'
     - job: IntegrationTests
       dependsOn:
         - UnitTests
